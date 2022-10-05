@@ -17,6 +17,7 @@ export default function useTokenGated(
     args: [address],
     enabled: !!address,
     watch: true,
+    onError: console.error
   });
   const isAuthenticated = sessionStatus === "authenticated";
   const isLoading = sessionStatus === "loading" || contractReadLoading;
