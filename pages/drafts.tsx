@@ -15,8 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import Link from "next/link";
-import { useProposals } from "lib/useProposals";
 import { Proposal } from "@prisma/client";
+import { useDrafts } from "lib/useDrafts";
 
 const ProposalRow = (props: Proposal) => (
   <Box p="20px">
@@ -29,7 +29,7 @@ const ProposalRow = (props: Proposal) => (
 const Page: NextPage = () => {
   const badgeAddress = process.env.NEXT_PUBLIC_BADGE_ADDRESS || "";
   useTokenGated(badgeAddress, true);
-  const { proposals } = useProposals();
+  const { drafts } = useDrafts();
 
   return (
     <Layout>
@@ -37,10 +37,10 @@ const Page: NextPage = () => {
         <Flex>
           <ButtonGroup isAttached>
             <Link href="/">
-              <Button isActive>All</Button>
+              <Button>All</Button>
             </Link>
             <Link href="/drafts">
-              <Button>Drafts</Button>
+              <Button isActive>Drafts</Button>
             </Link>
             <Button>RFC</Button>
             <Button>Accepted</Button>
@@ -61,8 +61,8 @@ const Page: NextPage = () => {
           borderWidth="1px"
           borderRadius="lg"
         >
-          {proposals && proposals.length > 0 ? (
-            proposals.map((p) => <ProposalRow key={p.id} {...p} />)
+          {drafts && drafts.length > 0 ? (
+            drafts.map((p) => <ProposalRow key={p.id} {...p} />)
           ) : (
             <Box>No Proposals</Box>
           )}
