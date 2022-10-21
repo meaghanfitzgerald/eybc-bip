@@ -8,14 +8,14 @@ export default withAuth(async (req, res, session) => {
 
   switch (method) {
     case "GET":
-      const proposals = await prisma.proposal.findMany();
-
-      if (!proposals || proposals.length <= 0)
-        return res.status(404).json({
-          error: "No proposals found",
+      try {
+        const proposals = await prisma.proposal.findMany();
+        return res.json(proposals);
+      } catch (err) {
+        return res.status(500).json({
+          error: "Error getting proposals",
         });
-
-      return res.json(proposals);
+      }
 
     case "POST":
       const {
