@@ -18,8 +18,8 @@ export default withAuth(async (req, res, session) => {
           error: "Failed to get proposals",
         });
       }
-      
-    case default:
+
+    default:
       return res.status(404).json({
         error: "No such route present",
       });
