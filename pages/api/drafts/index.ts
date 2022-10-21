@@ -20,8 +20,8 @@ export default withAuth(async (req, res, session) => {
       }
 
     default:
-      return res.status(404).json({
-        error: "No such route present",
+      return res.status(405).json({
+        error: "Method Not Allowed",
       });
   }
 });
