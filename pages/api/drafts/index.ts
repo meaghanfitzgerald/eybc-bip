@@ -8,15 +8,20 @@ export default withAuth(async (req, res, session) => {
 
   switch (method) {
     case "GET":
-      const drafts = await prisma.proposal.findMany({
-        where: { status: "DRAFT" },
-      });
-
-      if (!drafts || drafts.length <= 0)
-        return res.status(404).json({
-          error: "Failed to return any drafts",
+      try {
+        const drafts = await prisma.proposal.findMany({
+          where: { status: "DRAFT" },
         });
-
-      return res.json(drafts);
+        return res.json(drafts);
+      } catch(err) {
+        return res.status(500).json({
+          error: "Failed to get proposals",
+        });
+      }
+      
+    case default:
+      return res.status(404).json({
+        error: "No such route present",
+      });
   }
 });
