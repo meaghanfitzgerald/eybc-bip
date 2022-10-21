@@ -20,7 +20,7 @@ model Proposal {
   name                String
   author              String
   coAuthors           String
-  dateProposal        String
+  dateProposal        DateTime @db.Date
   championshipTeam    String
   leadershipSponsor   String
   summary             String
