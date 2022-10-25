@@ -1,6 +1,9 @@
 import type { NextPage } from "next";
 import useTokenGated from "lib/useTokenGated";
 import Layout from "components/Layout";
+import Navbuttons from 'components/Navbuttons'
+
+
 import {
   Box,
   Button,
@@ -35,19 +38,9 @@ const Page: NextPage = () => {
     <Layout>
       <VStack align="stretch" spacing={5}>
         <Flex>
-          <ButtonGroup isAttached>
-            <Link href="/">
-              <Button isActive>All</Button>
-            </Link>
-            <Link href="/drafts">
-              <Button>Drafts</Button>
-            </Link>
-            <Button>RFC</Button>
-            <Button>Accepted</Button>
-          </ButtonGroup>
-
+          {/* Sending the page prop to the Navbuttons.tsx to get the active button  */}
+          <Navbuttons page="All"/>
           <Spacer />
-
           <Link href="/new" passHref>
             <Button colorScheme="blue" leftIcon={<Icon as={FiPlus} />}>
               New Proposal
